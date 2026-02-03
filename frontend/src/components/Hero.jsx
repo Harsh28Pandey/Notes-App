@@ -3,44 +3,83 @@ import { ArrowRight, Zap } from 'lucide-react'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { useNavigate } from 'react-router-dom'
+import { getData } from '@/context/userContext'
 
 const Hero = () => {
 
     const navigate = useNavigate()
+    const { user } = getData()
 
     return (
-        <div className='relative w-full md:h-175 h-screen bg-green-100 overflow-hidden'>
-            <section className='w-full py-12 md:py-24 lg:py-32 xl:py-48'>
-                <div className='max-w-7xl mx-auto px-4 md:px-6'>
-                    <div className='flex flex-col items-center space-y-4 text-center'>
-                        <div className='space-y-2'>
-                            <Badge varient="secondary" className='mb-4 text-green-900 border border-green-300 bg-green-300'>
-                                <Zap className='w-4 h-4 mr-1' />
-                                New: AI-Powered note organization
-                            </Badge>
-                            <h1 className='text-green-700 text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl'>Your thoughts, organized and accessible
-                                <span className='text-gray-900'> everywhere</span>
-                            </h1>
-                            <p className='mx-auto max-w-175 text-muted-foreground md:text-xl'>
-                                Capture ideas, organize thoughts, and collaborate seamlessly. The modern note-taking app that grows with you and keeps your ideas secure in the cloud.
-                            </p>
-                        </div>
-                        <div className='space-x-4'>
-                            <Button onClick={() => navigate('/create-todo')} size='lg' className="h-12 px-8 relative bg-green-700 hover:bg-green-900 cursor-pointer">
+        <div className="relative w-full min-h-screen bg-linear-to-br from-green-100 via-green-200 to-green-300 overflow-hidden -mt-28">
+
+            {/* subtle background decoration */}
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-green-400/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 -left-24 w-96 h-96 bg-green-500/20 rounded-full blur-3xl" />
+
+            <section className="relative w-full py-16 md:py-28 lg:py-36">
+                <div className="max-w-7xl mx-auto px-4 md:px-6">
+                    <div className="flex flex-col items-center text-center space-y-6">
+
+                        {/* Welcome */}
+                        <p className="text-sm md:text-base text-green-900">
+                            Welcome back, <span className="font-semibold">{user.username}</span> 👋
+                        </p>
+
+                        {/* Badge */}
+                        <Badge
+                            variant="secondary"
+                            className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-300/70 text-green-900 border border-green-400 shadow-sm"
+                        >
+                            <Zap className="w-4 h-4" />
+                            New: AI-Powered Note Organization
+                        </Badge>
+
+                        {/* Heading */}
+                        <h1 className="max-w-4xl text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-green-800">
+                            Your thoughts,
+                            <span className="block text-gray-900">
+                                organized & accessible everywhere
+                            </span>
+                        </h1>
+
+                        {/* Description */}
+                        <p className="max-w-2xl text-gray-700 md:text-xl leading-relaxed">
+                            Capture ideas, organize thoughts, and collaborate seamlessly.
+                            A modern note-taking app that grows with you and keeps your ideas
+                            secure in the cloud.
+                        </p>
+
+                        {/* CTA */}
+                        <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                            <Button
+                                onClick={() => navigate("/create-todo")}
+                                size="lg"
+                                className="h-12 px-8 bg-green-700 hover:bg-green-800 rounded-xl font-semibold shadow-lg"
+                            >
                                 Start Taking Notes
-                                <ArrowRight className='ml-2 h-4 w-4' />
+                                <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
-                            <Button varient="outline" size='lg' className="h-12 px-8 bg-white text-green-900 hover:bg-green-300 cursor-pointer">
+
+                            <Button
+                                variant="outline"
+                                size="lg"
+                                className="h-12 px-8 rounded-xl bg-white/80 backdrop-blur border-green-300 text-green-900 hover:bg-green-200"
+                            >
                                 Watch Demo
                             </Button>
                         </div>
-                        <p className='text-sm text-green-900'>
-                            Free Forever • No credit card required • 2 minutes setup
+
+                        {/* Trust line */}
+                        <p className="text-sm text-green-900 pt-2">
+                            Free forever • No credit card required • Setup in 2 minutes
                         </p>
+
                     </div>
                 </div>
             </section>
         </div>
+
     )
 }
 

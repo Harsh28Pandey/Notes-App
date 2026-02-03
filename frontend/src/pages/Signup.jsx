@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label"
 import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import axios from 'axios'
 import { toast } from 'sonner'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Signup = () => {
 
@@ -51,91 +51,130 @@ const Signup = () => {
     }
 
     return (
-        <div className='relative w-full h-screen md:h-190 bg-green-200 overflow-hidden'>
-            <div className='min-h-screen flex flex-col to-muted/20'>
-                <div className='flex-1 flex items-center justify-center p-4'>
-                    <div className='w-full max-w-md space-y-6'>
-                        <div className='text-center space-y-2'>
-                            <h1 className='text-3xl font-bold tracking-tight text-green-700'>Create Your Account</h1>
-                            <p className='text-gray-700'>Start Organizing your thoughts and ideas today</p>
+        <div className="relative w-full min-h-screen bg-linear-to-br from-green-100 via-green-200 to-green-300 overflow-hidden">
+
+            {/* background glow */}
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-green-400/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 -left-24 w-96 h-96 bg-green-500/20 rounded-full blur-3xl" />
+
+            <div className="min-h-screen flex flex-col">
+                <div className="flex-1 flex items-center justify-center p-4">
+                    <div className="w-full max-w-md space-y-6">
+
+                        {/* Page header */}
+                        <div className="text-center space-y-2">
+                            <h1 className="text-3xl font-extrabold tracking-tight text-green-800">
+                                Create your account
+                            </h1>
+                            <p className="text-gray-700 text-sm">
+                                Start organizing your thoughts and ideas today
+                            </p>
                         </div>
-                        <div className='w-full h-full flex items-center justify-center bg-green-200'>
-                            <Card className="w-full max-w-sm">
-                                <CardHeader className="space-y-1">
-                                    <CardTitle className="text-2xl text-center text-green-700 font-bold">Sign Up</CardTitle>
-                                    <CardDescription className="text-center text-gray-700 font-semibold">
-                                        Create your account to get started with Notes App
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="flex flex-col gap-6">
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="full name">Full Name</Label>
+
+                        {/* Card */}
+                        <Card className="w-full rounded-2xl shadow-xl border-0 bg-white">
+                            <CardHeader className="space-y-1">
+                                <CardTitle className="text-2xl text-center text-green-700 font-bold">
+                                    Sign up
+                                </CardTitle>
+                                <CardDescription className="text-center text-gray-600">
+                                    Create your account to get started with Notes App
+                                </CardDescription>
+                            </CardHeader>
+
+                            <CardContent>
+                                <div className="flex flex-col gap-5">
+
+                                    <div className="grid gap-2">
+                                        <Label>Full name</Label>
+                                        <Input
+                                            name="username"
+                                            value={formData.username}
+                                            onChange={handleChange}
+                                            placeholder="John Doe"
+                                            required
+                                            className="h-11 rounded-lg"
+                                        />
+                                    </div>
+
+                                    <div className="grid gap-2">
+                                        <Label>Email address</Label>
+                                        <Input
+                                            name="email"
+                                            type="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            placeholder="you@example.com"
+                                            required
+                                            className="h-11 rounded-lg"
+                                        />
+                                    </div>
+
+                                    <div className="grid gap-2">
+                                        <Label>Password</Label>
+                                        <div className="relative">
                                             <Input
-                                                id="full name"
-                                                name="username"
-                                                value={formData.username}
+                                                name="password"
+                                                type={showPassword ? "text" : "password"}
+                                                value={formData.password}
                                                 onChange={handleChange}
-                                                type="text"
-                                                placeholder="Enter your full name"
+                                                placeholder="Create a strong password"
                                                 required
+                                                className="h-11 rounded-lg pr-10"
                                             />
-                                        </div>
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="email">Email</Label>
-                                            <Input
-                                                id="email"
-                                                name="email"
-                                                value={formData.email}
-                                                onChange={handleChange}
-                                                type="email"
-                                                placeholder="Enter your email"
-                                                required
-                                            />
-                                        </div>
-                                        <div className="grid gap-2">
-                                            <Label htmlFor="password">Password</Label>
-                                            <div className='relative'>
-                                                <Input
-                                                    id="password"
-                                                    name="password"
-                                                    value={formData.password}
-                                                    onChange={handleChange}
-                                                    type={showPassword ? "text" : "password"}
-                                                    placeholder="Enter your password" required />
-                                                <Button
-                                                    size='sm'
-                                                    onClick={() => setShowPassword(!showPassword)}
-                                                    disabled={isLoading}
-                                                    variant='ghost'
-                                                    className='absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent cursor-pointer'
-                                                >
-                                                    {
-                                                        showPassword ? <EyeOff className='w-4 h-4 text-gray-700' /> : <Eye className='w-4 h-4 text-gray-700' />
-                                                    }
-                                                </Button>
-                                            </div>
+                                            <Button
+                                                type="button"
+                                                size="sm"
+                                                variant="ghost"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                disabled={isLoading}
+                                                className="absolute right-1 top-1/2 -translate-y-1/2 hover:bg-transparent"
+                                            >
+                                                {showPassword ? (
+                                                    <EyeOff className="w-4 h-4 text-gray-600" />
+                                                ) : (
+                                                    <Eye className="w-4 h-4 text-gray-600" />
+                                                )}
+                                            </Button>
                                         </div>
                                     </div>
-                                </CardContent>
-                                <CardFooter className="flex-col gap-2">
-                                    <Button onClick={handleSubmit} type="submit" className="w-full bg-green-800 hover:bg-green-600 rounded-xl cursor-pointer">
-                                        {
-                                            isLoading ? (
-                                                <>
-                                                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                                                    Creating account...
-                                                </>
-                                            ) : "Signup"
-                                        }
-                                    </Button>
-                                </CardFooter>
-                            </Card>
-                        </div>
+
+                                </div>
+                            </CardContent>
+
+                            <CardFooter className="flex flex-col gap-3">
+                                <Button
+                                    onClick={handleSubmit}
+                                    type="submit"
+                                    disabled={isLoading}
+                                    className="w-full h-11 bg-green-700 hover:bg-green-600 rounded-xl font-semibold"
+                                >
+                                    {isLoading ? (
+                                        <span className="flex items-center gap-2">
+                                            <Loader2 className="h-4 w-4 animate-spin" />
+                                            Creating account...
+                                        </span>
+                                    ) : (
+                                        "Sign up"
+                                    )}
+                                </Button>
+
+                                <p className="text-sm text-gray-600 text-center">
+                                    Already have an account?{" "}
+                                    <Link
+                                        to="/login"
+                                        className="text-green-700 font-medium hover:underline"
+                                    >
+                                        Sign in
+                                    </Link>
+                                </p>
+                            </CardFooter>
+                        </Card>
                     </div>
                 </div>
             </div>
         </div>
+
     )
 }
 

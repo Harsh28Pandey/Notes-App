@@ -34,10 +34,30 @@ const Verify = () => {
     }, [token, navigate])
 
     return (
-        <div className='relative w-full h-190 bg-green-200 overflow-hidden'>
-            <div className='min-h-screen flex items-center justify-center'>
-                <div className='bg-white p-6 rounded-2xl shadow-md text-center w-[90%] max-w-md'>
-                    <h2 className='text-xl font-semibold text-gray-900'>{status}</h2>
+        <div className="relative w-full min-h-screen bg-linear-to-br from-green-100 via-green-200 to-green-300 overflow-hidden">
+
+            {/* background glow */}
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-green-400/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 -left-24 w-96 h-96 bg-green-500/20 rounded-full blur-3xl" />
+
+            <div className="min-h-screen flex items-center justify-center px-4">
+                <div className="bg-white p-8 rounded-2xl shadow-xl text-center w-full max-w-md space-y-4">
+
+                    {/* status icon */}
+                    <div className="mx-auto w-14 h-14 rounded-full bg-green-100 flex items-center justify-center">
+                        <CheckCircle className="w-7 h-7 text-green-700" />
+                    </div>
+
+                    {/* status text */}
+                    <h2 className="text-2xl font-bold text-gray-900">
+                        {status}
+                    </h2>
+
+                    {/* helper text */}
+                    <p className="text-sm text-gray-600">
+                        You can safely close this page or continue using the application.
+                    </p>
+
                 </div>
             </div>
         </div>

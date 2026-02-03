@@ -8,9 +8,11 @@ import axios from 'axios'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { getData } from '@/context/userContext'
 
 const Login = () => {
 
+    const { setUser } = getData()
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -41,6 +43,8 @@ const Login = () => {
 
             if (res.data.success) {
                 navigate('/')
+                setUser(res.data.user)
+                localStorage.setItem("accessToken", res.data.accessToken)
                 toast.success(res.data.message)
             }
         } catch (error) {
